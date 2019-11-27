@@ -1,0 +1,22 @@
+function tday = getTday2(tday)
+
+%tday=datestr(tday, 'yyyymmdd');
+%tday=datestr(tday, 'yyyymmddTHHMMSS');
+
+%len=length(tday);
+%tdaycell = cell(len, 1);
+%for k=1:1:len
+%    tdaycell{k,1} = tday(k, 1:8);
+%end
+
+tmp1=cellstr(num2str(tday));
+%tmp1=num2str(tday);
+len=length(tmp1);
+for k=1:1:len
+    %tmp1(k) = strcat(tmp1(k),'T000000');
+    tmp1(k) = mod(tday(k),1000;
+end
+
+tmp=datenum(tmp1, 'yyyymmddTHHMMSS');
+tday=datestr(tmp);
+tday=cellstr(tday)
