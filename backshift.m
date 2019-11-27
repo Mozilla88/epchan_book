@@ -14,7 +14,7 @@ function y=backshift(day,x)
 if day<0 
     error(['day = ' num2str(day) '<0, error!']); 
 end 
-y=[NaN(day,size(x,2), size(x, 3));x(1:end-day,:, :)];
-%tmp=[day,size(x,2),size(x,3)];
-%tmp(1:day,1:size(x,2),1:size(x,3))=NaN;
-%y=[tmp;x(1:end-day,:, :)];
+%y=[NaN(day,size(x,2), size(x, 3));x(1:end-day,:, :)];
+tmp1=zeros(day,size(x,2),size(x,3))*NaN;
+tmp2=x(1:end-day,:, :);
+y=[tmp1;tmp2];
