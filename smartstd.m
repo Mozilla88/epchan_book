@@ -1,19 +1,20 @@
-function y = smartstd(x, dim)
-%y = smartstd(x, dim)    std along dimension dim, ignoring NaN and Inf 
-% 
-% written by:
-% Ernest Chan
+function y = smartstd(x,dim)
+%SMARTSTD    Standard deviation of finite elements.
 %
-% Author of “Quantitative Trading: 
-% How to Start Your Own Algorithmic Trading Business”
+%   Same as STD except that it ignores NaN and Inf instead of 
+%   propagating them
 %
-% ernest@epchan.com
-% www.epchan.com
+%   Normalizes by N, not N-1
 
-hasData=isfinite(x);
+if nargin<2, 
+  dim = min(find(size(x)~=1));
+  if isempty(dim), dim = 1; end
+end
 
-x(~hasData)=0;
+tile=ones(1,max(ndims(x),dim));
+tile(dim)=size(x,dim);
 
-y=std(x);
+xc=x-repmat(smartmean(x,dim),tile);  % Remove mean
+y=sqrt(smartmean(conj(xc).*xc,dim)); % normalize by N
 
-y(all(~hasData, dim))=NaN;
+% y=sqrt(smartsum(conj(xc).*xc,dim)/(smartsum(abs(sign(xc)), dim)-1)); %normalize by N-1
